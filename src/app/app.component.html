@@ -1,0 +1,23 @@
+<mat-drawer-container class="container" autosize>
+    <mat-drawer #drawer class="sidenav" mode="side">
+
+        <div class="menu">
+            <a mat-button routerLink="/">home</a>
+            <a mat-button routerLink="/paciente">paciente</a>
+            <a mat-button routerLink="/doutor">doutor</a>
+            <a mat-button routerLink="/recepcao">recepcao</a>
+            <a mat-button routerLink="/financeiro">financeiro</a>
+        </div>
+
+
+    </mat-drawer>
+
+    <div class="sidenav-content">
+        <button type="button" mat-icon-button (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <router-outlet></router-outlet>
+    </div>
+
+</mat-drawer-container>

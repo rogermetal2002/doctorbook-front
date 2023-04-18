@@ -1,0 +1,191 @@
+<!-- String nome, String cpf, String telefone, String endereco, String nascimento, String genero, String receita, String despesa -->
+
+<div>
+    <mat-card>
+        <mat-card-content>
+
+            <h2>
+                Financeiro
+            </h2>
+        </mat-card-content>
+        <mat-card-content>
+                Módulo relatório financeiro
+        </mat-card-content>
+    </mat-card>
+    <h1></h1>
+</div>
+<div class="container">
+    <div>
+        <div [formGroup]="form">
+            <!-- <h3>Descrição Financeira:</h3>
+            <input type="text" formControlName="nome">
+            <h3>CPF:</h3>
+            <input type="text" formControlName="cpf">
+            <h3>Telefone:</h3>
+            <input type="text" formControlName="telefone">
+            <h3>Endereço:</h3>
+            <input type="text" formControlName="endereco">
+            <h3>Nascimento:</h3>
+            <input type="text" formControlName="nascimento">
+            <h3>Genero:</h3>
+            <input type="text" formControlName="genero">
+            <h3>Receita:</h3>
+            <input type="text" formControlName="receita">
+            <h3>Despesa:</h3>
+            <input type="text" formControlName="despesa"> -->
+            <mat-form-field class="nome-descricao">
+                <mat-label>Responsável pelo financeiro</mat-label>
+                <input matInput formControlName="nome">
+            </mat-form-field>
+
+
+            <mat-form-field class="nascimento-descricao">
+                <mat-label>Data de Nascimento</mat-label>
+                <input matInput formControlName="nascimento">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <!-- <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle> -->
+                <!-- <mat-datepicker #picker></mat-datepicker> -->
+            </mat-form-field>
+
+
+            <mat-form-field class="sexo-descricao">
+                <mat-label>Sexo</mat-label>
+                <input matInput formControlName="genero">
+            </mat-form-field>
+
+            <h3>
+                <mat-form-field class="telefone-descricao">
+                    <mat-label>Telefone</mat-label>
+                    <input matInput formControlName="telefone">
+                </mat-form-field>
+
+                <mat-form-field class="cpf-descricao">
+                    <mat-label>CPF</mat-label>
+                    <input matInput formControlName="cpf">
+                </mat-form-field>
+
+                <mat-form-field class="endereco-descricao">
+                    <mat-label>Endereço</mat-label>
+                    <input matInput formControlName="endereco">
+                </mat-form-field>
+            </h3>
+
+        <!-- <button (click)="enviar_financeiro()">Salvar</button> -->
+        <div class="container-buttons">
+            <button mat-raised-button color="accent" (click)="enviarFinanceiro()" *ngIf="!editMode">Salvar dados
+                financeiros</button>
+            <button mat-raised-button color="accent" (click)="editarFinanceiro()" *ngIf="editMode">Atualizar dados do
+                financeiro</button>
+            <button mat-raised-button color="accent" (click)="desativaEdicao()" *ngIf="editMode">Cancelar</button>
+
+        </div>
+    </div>
+
+    <mat-card>
+        <mat-card-content>
+            <h2>
+                Relatórios Financeiros
+            </h2>
+            <form (ngSubmit)="onSubmit($event)">
+                <mat-form-field class="pesquisa">
+                    <mat-label>Pesquisar</mat-label>
+                    <input [formControl]="searchField" type="text" matInput placeholder="pesquise">
+                    <button mat-icon-button matSuffix type="submit">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </mat-form-field>
+                <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+                    aria-label="Select page">
+                </mat-paginator>
+            </form>
+
+
+        </mat-card-content>
+    </mat-card>
+
+
+    <!-- <div class="listagem">
+
+        <div class="item">
+            <h3>Nome</h3>
+            <h3>CPF</h3>
+            <h3>Telefone</h3>
+            <h3>Endereço</h3>
+        </div>
+
+        <div class="item" *ngFor="let item of dados">
+            <span>
+                {{item.nome}}
+            </span>
+            <span>
+                {{item.cpf}}
+            </span>
+            <span>
+                {{item.telefone}}
+            </span>
+            <span>
+                {{item.endereco}}
+            </span>
+            <button mat-raised-button color="danger" (click)="exibir(item)">Excluir</button>
+            <button mat-raised-button color="danger" (click)="ativaEdicao(item)">Editar</button>
+        </div> -->
+    <!-- Inserindo tabela -->
+    <div>
+        <table mat-table [dataSource]="dados" class="mat-elevation-z8">
+            <!-- displayedColumns: string[] = ['nome', 'cpf', 'telefone', 'endereco','nascimento','genero','acoes'];  -->
+            <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef> Nome </th>
+                <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="cpf">
+                <th mat-header-cell *matHeaderCellDef> CPF </th>
+                <td mat-cell *matCellDef="let element"> {{element.cpf}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="telefone">
+                <th mat-header-cell *matHeaderCellDef> Telefone </th>
+                <td mat-cell *matCellDef="let element"> {{element.telefone}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="endereco">
+                <th mat-header-cell *matHeaderCellDef> Endereço </th>
+                <td mat-cell *matCellDef="let element"> {{element.endereco}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nascimento">
+                <th mat-header-cell *matHeaderCellDef> Nascimento </th>
+                <td mat-cell *matCellDef="let element"> {{element.nascimento}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="genero">
+                <th mat-header-cell *matHeaderCellDef> Genero </th>
+                <td mat-cell *matCellDef="let element"> {{element.genero}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acoes">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-raised-button color="warn" (click)="exibir(element)">Excluir</button>
+                    <button mat-raised-button color="primary" (click)="ativaEdicao(element)">Editar</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+    </div>
+
+    <div class="confirma" *ngIf="modal">
+        <div class="modal">
+            <h2>Deseja realmente excluir os dados selecionados?</h2>
+            <button mat-raised-button color="warn" (click)="excluirFinanceiro()">Sim</button>
+            <button mat-raised-button color="warn" (click)="ocultar()">Não</button>
+        </div>
+    </div>
+
+</div>
