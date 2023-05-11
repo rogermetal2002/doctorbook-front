@@ -22,8 +22,11 @@ export class PacientePageComponent implements OnInit {
     evolucao: new FormControl(''),
     agenda: new FormControl(''),
     descricaoAgenda: new FormControl(''),
+    foto: new FormControl(),
     id: new FormControl('')
   })
+
+
 
 
   //     private String nome;
@@ -53,13 +56,44 @@ export class PacientePageComponent implements OnInit {
       },
     })
   }
+  uploadFoto(idUsuario: any) {
+    const formData = new FormData();
+    formData.append('file', this.arquivoSelecionado!);
+    formData.append('idUsuario', idUsuario + '');
+    formData.append('tipoUsuario', 'PACIENTE');
+    formData.append('perfil', 'true');
+    console.log(formData);
+    // this.service.uploadArquivo(formData).subscribe({
+    //   next: (res) => {
+    //     console.log(res);
+    //   }
+    // });     
+  }
+  arquivoSelecionado:File | undefined;
+  changeFoto(event: any) {    
+    this.arquivoSelecionado=event.target.files[0];
+    console.log(this.arquivoSelecionado);
+  }
+
   enviarPaciente() {
-    const cadastro = this.form.value;
+    const valor = this.form.value;
+    const cadastro = {
+      nome: valor.nome,
+      cpf: valor.cpf,
+      telefone: valor.telefone,
+      endereco: valor.endereco,
+      nascimento: valor.nascimento,
+      genero: valor.genero,
+      evolucao: valor.evolucao,
+      agenda: valor.agenda,
+      descricaoAgenda: valor.descricaoAgenda
+    };
     console.log(cadastro);
 
     this.service.cadastrarPaciente(cadastro).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         console.log(res);
+        this.uploadFoto(res.id);
         this.form.reset();
         this.ngOnInit();
       },
@@ -106,7 +140,20 @@ export class PacientePageComponent implements OnInit {
   }
 
   editarPaciente() {
-    const cadastro = this.form.value;
+    const valor = this.form.value;
+    const cadastro = {
+      nome: valor.nome,
+      cpf: valor.cpf,
+      telefone: valor.telefone,
+      endereco: valor.endereco,
+      nascimento: valor.nascimento,
+      genero: valor.genero,
+      evolucao: valor.evolucao,
+      agenda: valor.agenda,
+      descricaoAgenda: valor.descricaoAgenda,
+      id: valor.id
+    };
+
     console.log(cadastro);
 
     this.service.updatePaciente(cadastro).subscribe({

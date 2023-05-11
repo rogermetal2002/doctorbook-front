@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environment';
 
@@ -80,5 +80,9 @@ export class ApiService {
   }
   searchFinanceiro(termo: string) {
     return this.httpClient.get(this.api + 'financeiro/search?termo=' + termo);
+  }
+  uploadArquivo(arquivo: FormData){
+    const headers=new HttpHeaders().set('Content-Type','multipart/form-data')
+    return this.httpClient.post(this.api + 'arquivo', arquivo,{headers});
   }
 }

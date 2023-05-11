@@ -57,6 +57,9 @@
                 <input matInput formControlName="genero">
             </mat-form-field>
 
+            <label for="foto">Foto</label>
+                <input accept="image/*" type="file" (change)="changeFoto($event)" formControlName="foto">          
+
             <h3>
                 <mat-form-field class="telefone-descricao">
                     <mat-label>Telefone</mat-label>
