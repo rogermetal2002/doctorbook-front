@@ -58,3 +58,30 @@
 .pesquisa{
     width: 600px;
 }
+.edit-perfil{
+   height: 170px; 
+}
+.uploader{
+    display: flex;
+    color: rgba(0,0,0,.87);
+    background-color: whitesmoke;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.499);
+    padding: 15px;   
+    align-items: center;
+}
+.form-area{
+    display: flex;
+    align-items: center;
+    margin-top: 30px; 
+    margin-bottom: 15px;
+    gap: 15px;      
+}
+.edit-area{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+

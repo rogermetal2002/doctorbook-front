@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ApiService } from '../service/api.service';
+import { environment } from '../environment';
 
 @Component({
   selector: 'app-paciente-page',
@@ -59,15 +60,22 @@ export class PacientePageComponent implements OnInit {
   uploadFoto(idUsuario: any) {
     const formData = new FormData();
     formData.append('file', this.arquivoSelecionado!);
-    formData.append('idUsuario', idUsuario + '');
-    formData.append('tipoUsuario', 'PACIENTE');
-    formData.append('perfil', 'true');
-    console.log(formData);
-    // this.service.uploadArquivo(formData).subscribe({
-    //   next: (res) => {
-    //     console.log(res);
-    //   }
-    // });     
+
+    this.service.uploadArquivo(formData, idUsuario, 'PACIENTE', true).subscribe({
+      next: (res) => {
+        console.log(res);
+      }
+    });
+  }
+  updateFoto(idUsuario: any) {
+    const formData = new FormData();
+    formData.append('file', this.arquivoSelecionado!);
+
+    this.service.alterarPerfil(formData, idUsuario).subscribe({
+      next: (res) => {
+        console.log(res);
+      }
+    });
   }
   arquivoSelecionado:File | undefined;
   changeFoto(event: any) {    
@@ -127,12 +135,13 @@ export class PacientePageComponent implements OnInit {
   }
   //Lógica do upload
   editMode = false;
-  toEdit = {}
+  toEdit:any = {}
+  urlImage=environment.api+'arquivo/get-perfil?id=';
   ativaEdicao(cadastro: any) {
     this.editMode = true;
     console.log(cadastro);
     this.toEdit = cadastro;
-    this.form.setValue({ ...cadastro })
+    this.form.setValue({ ...cadastro,foto:'' })
   }
   desativaEdicao() {
     this.editMode = false;
@@ -160,6 +169,7 @@ export class PacientePageComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.desativaEdicao();
+        this.updateFoto(cadastro.id);
         this.ngOnInit();
       },
       error: (res) => {

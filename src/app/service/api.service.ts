@@ -81,8 +81,10 @@ export class ApiService {
   searchFinanceiro(termo: string) {
     return this.httpClient.get(this.api + 'financeiro/search?termo=' + termo);
   }
-  uploadArquivo(arquivo: FormData){
-    const headers=new HttpHeaders().set('Content-Type','multipart/form-data')
-    return this.httpClient.post(this.api + 'arquivo', arquivo,{headers});
+  uploadArquivo(arquivo: FormData, idUsuario: string, tipoUsuario: string, perfil: boolean){    
+    return this.httpClient.post<any>(`${this.api}arquivo?idUsuario=${idUsuario}&tipoUsuario=${tipoUsuario}&perfil=${perfil}`, arquivo);
+  }
+  alterarPerfil(arquivo:FormData, idUsuario:string){
+    return this.httpClient.put<any>(`${this.api}arquivo?idUsuario=${idUsuario}`,arquivo);
   }
 }

@@ -9,82 +9,99 @@
             </h2>
         </mat-card-content>
         <mat-card-content>
-                Módulo de registro de paciente para agenda de consulta médica
+            Módulo de registro de paciente para agenda de consulta médica
         </mat-card-content>
     </mat-card>
-    <h1></h1>
+
+
+
 </div>
 
 <div class="container">
     <div>
-        <div [formGroup]="form">
-            <!-- <h3>Nome do Paciente:</h3>
-            <input type="text" formControlName="nome">
-            <h3>CPF:</h3>
-            <input type="text" formControlName="cpf">
-            <h3>Telefone:</h3>
-            <input type="text" formControlName="telefone">
-            <h3>Endereço:</h3>
-            <input type="text" formControlName="endereco">
-            <h3>Nascimento:</h3>
-            <input type="text" formControlName="nascimento">
-            <h3>Genero:</h3>
-            <input type="text" formControlName="genero">
-            <h3>Evolucão:</h3>
-            <textarea name="text" id="" cols="30" rows="5" formControlName="evolucao"></textarea>
-            <h3>Data da Consulta:</h3>
-            <input id="date" type="date" formControlName="agenda">
-            <h3>Descrição da Agenda:</h3>
-            <textarea name="text" id="" cols="30" rows="5" formControlName="descricaoAgenda"></textarea> -->
+        <div class="form-area" [formGroup]="form">            
 
-            <mat-form-field class="nome-descricao">
-                <mat-label>Nome do paciente</mat-label>
-                <input matInput formControlName="nome">
-            </mat-form-field>
-
-
-            <mat-form-field class="nascimento-descricao">
-                <mat-label>Data de Nascimento</mat-label>
-                <input matInput formControlName="nascimento">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <!-- <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle> -->
-                <!-- <mat-datepicker #picker></mat-datepicker> -->
-            </mat-form-field>
-
-
-            <mat-form-field class="sexo-descricao">
-                <mat-label>Sexo</mat-label>
-                <input matInput formControlName="genero">
-            </mat-form-field>
-
-            <label for="foto">Foto</label>
-                <input accept="image/*" type="file" (change)="changeFoto($event)" formControlName="foto">          
-
-            <h3>
-                <mat-form-field class="telefone-descricao">
-                    <mat-label>Telefone</mat-label>
-                    <input matInput formControlName="telefone">
-                </mat-form-field>
-
-                <mat-form-field class="cpf-descricao">
-                    <mat-label>CPF</mat-label>
-                    <input matInput formControlName="cpf">
-                </mat-form-field>
-
-                <mat-form-field class="endereco-descricao">
-                    <mat-label>Endereço</mat-label>
-                    <input matInput formControlName="endereco">
-                </mat-form-field>
-            </h3>
-
-            <!-- <button (click)="enviar_paciente()">Salvar</button> -->
-            <div class="container-buttons">
-                <button mat-raised-button color="accent" (click)="enviarPaciente()" *ngIf="!editMode">Salvar dados do
-                    paciente</button>
-                <button mat-raised-button color="accent" (click)="editarPaciente()" *ngIf="editMode">Atualizar dados do
-                    paciente</button>
-                <button mat-raised-button color="accent" (click)="desativaEdicao()" *ngIf="editMode">Cancelar</button>
+            <div class="edit-area">
+                <img class="edit-perfil" [src]="editMode ? urlImage+toEdit.id : '../../assets/user.png' "
+                    alt="Nenhuma imagem encontrada.">
+                    <div class="uploader">
+                        <input accept="image/jpeg" type="file" (change)="changeFoto($event)" formControlName="foto">
+    
+                    </div>
             </div>
+            <div>
+                <!-- <h3>Nome do Paciente:</h3>
+                <input type="text" formControlName="nome">
+                <h3>CPF:</h3>
+                <input type="text" formControlName="cpf">
+                <h3>Telefone:</h3>
+                <input type="text" formControlName="telefone">
+                <h3>Endereço:</h3>
+                <input type="text" formControlName="endereco">
+                <h3>Nascimento:</h3>
+                <input type="text" formControlName="nascimento">
+                <h3>Genero:</h3>
+                <input type="text" formControlName="genero">
+                <h3>Evolucão:</h3>
+                <textarea name="text" id="" cols="30" rows="5" formControlName="evolucao"></textarea>
+                <h3>Data da Consulta:</h3>
+                <input id="date" type="date" formControlName="agenda">
+                <h3>Descrição da Agenda:</h3>
+                <textarea name="text" id="" cols="30" rows="5" formControlName="descricaoAgenda"></textarea> -->
+
+                <mat-form-field class="nome-descricao">
+                    <mat-label>Nome do paciente</mat-label>
+                    <input matInput formControlName="nome">
+                </mat-form-field>
+
+
+                <mat-form-field class="nascimento-descricao">
+                    <mat-label>Data de Nascimento</mat-label>
+                    <input matInput formControlName="nascimento">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <!-- <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle> -->
+                    <!-- <mat-datepicker #picker></mat-datepicker> -->
+                </mat-form-field>
+
+
+                <mat-form-field class="sexo-descricao">
+                    <mat-label>Sexo</mat-label>
+                    <input matInput formControlName="genero">
+                </mat-form-field>
+
+                
+
+                <h3>
+                    <mat-form-field class="telefone-descricao">
+                        <mat-label>Telefone</mat-label>
+                        <input matInput formControlName="telefone">
+                    </mat-form-field>
+
+                    <mat-form-field class="cpf-descricao">
+                        <mat-label>CPF</mat-label>
+                        <input matInput formControlName="cpf">
+                    </mat-form-field>
+
+                    <mat-form-field class="endereco-descricao">
+                        <mat-label>Endereço</mat-label>
+                        <input matInput formControlName="endereco">
+                    </mat-form-field>
+                </h3>
+
+                <!-- <button (click)="enviar_paciente()">Salvar</button> -->
+                <div class="container-buttons">
+                    <button mat-raised-button color="accent" (click)="enviarPaciente()" *ngIf="!editMode">Salvar dados
+                        do
+                        paciente</button>
+                    <button mat-raised-button color="accent" (click)="editarPaciente()" *ngIf="editMode">Atualizar dados
+                        do
+                        paciente</button>
+                    <button mat-raised-button color="accent" (click)="desativaEdicao()"
+                        *ngIf="editMode">Cancelar</button>
+                </div>
+
+            </div>
+
 
         </div>
 
