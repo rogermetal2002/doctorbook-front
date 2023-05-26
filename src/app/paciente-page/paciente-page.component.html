@@ -22,12 +22,13 @@
         <div class="form-area" [formGroup]="form">            
 
             <div class="edit-area">
-                <img class="edit-perfil" [src]="editMode ? urlImage+toEdit.id : '../../assets/user.png' "
+                <img class="edit-perfil" [src]="( imagemSelecionada ? imagemSelecionada : editMode ? urlImage+toEdit.id : '../../assets/user.png' ) || '../../assets/user.png' "
                     alt="Nenhuma imagem encontrada.">
                     <div class="uploader">
-                        <input accept="image/jpeg" type="file" (change)="changeFoto($event)" formControlName="foto">
-    
+                        <input #fileInput accept="image/jpeg" type="file" (change)="changeFoto($event)" formControlName="foto">
+                        
                     </div>
+                    <button mat-raised-button color="accent" (click)="removeFoto()"> Exluir foto </button>
             </div>
             <div>
                 <!-- <h3>Nome do Paciente:</h3>

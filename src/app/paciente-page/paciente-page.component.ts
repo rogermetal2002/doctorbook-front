@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ApiService } from '../service/api.service';
 import { environment } from '../environment';
@@ -12,6 +12,7 @@ import { environment } from '../environment';
 
 
 export class PacientePageComponent implements OnInit {
+  @ViewChild('fileInput') inputRef!: ElementRef;
   //(String nome, String cpf, String telefone, String endereco, String nascimento, String genero, String evolucao, String agenda, String descricaoAgenda)
   form = new FormGroup({
     nome: new FormControl(''),
@@ -77,10 +78,25 @@ export class PacientePageComponent implements OnInit {
       }
     });
   }
-  arquivoSelecionado:File | undefined;
+  arquivoSelecionado: File | undefined;
+  imagemSelecionada: string | ArrayBuffer | null | undefined;
   changeFoto(event: any) {    
-    this.arquivoSelecionado=event.target.files[0];
+    this.arquivoSelecionado = event.target.files[0];
     console.log(this.arquivoSelecionado);
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagemSelecionada = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    }else{
+      this.imagemSelecionada = null;
+    }
+  }
+  removeFoto(){
+    this.inputRef.nativeElement.value = '';
+    this.imagemSelecionada = null;    
   }
 
   enviarPaciente() {
@@ -135,13 +151,14 @@ export class PacientePageComponent implements OnInit {
   }
   //Lógica do upload
   editMode = false;
-  toEdit:any = {}
-  urlImage=environment.api+'arquivo/get-perfil?id=';
+  toEdit: any = {}
+  urlImage = environment.api + 'arquivo/get-perfil?id=';
   ativaEdicao(cadastro: any) {
+    this.removeFoto();
     this.editMode = true;
     console.log(cadastro);
     this.toEdit = cadastro;
-    this.form.setValue({ ...cadastro,foto:'' })
+    this.form.setValue({ ...cadastro, foto: '' })
   }
   desativaEdicao() {
     this.editMode = false;
